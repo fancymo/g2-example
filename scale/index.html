@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>g2 example - scale</title>
+</head>
+<body>
+  <div id="c1"></div>
+  <div id="c2"></div>
+  <script src="https://gw.alipayobjects.com/os/antv/assets/g2/3.0.4-beta.2/g2.min.js"></script>
+  <script>
+    const data = [
+      { name: '张三', score: 52 },
+      { name: '王五', score: 100 },
+      ];
+    const data1 = [
+      { name: '张三', num: 1000 },
+      { name: '王五', num: 100 },
+      { name: '李四', num: 10 },
+      ];
+    const data2  = [
+      { a: 'a1', b:'b1', type: '最小' },
+      { a: 'a2', b:'b2', type: '最大' },
+      { a: 'a3', b:'b3', type: '适中' }
+    ];
+
+    // Step 1: 创建 Chart 对象
+    const chart = new G2.Chart({
+      container: 'c1', // 指定图表容器 ID
+      width : 600, // 指定图表宽度
+      height : 300 // 指定图表高度
+    });
+    chart.source(data, {
+      score: {
+        min: 0,
+        max: 100,
+        tickCount: 4,
+      }
+    });
+    chart.point().position('name*score').color('name');
+
+    const chart1 = new G2.Chart({
+      container: 'c2', // 指定图表容器 ID
+      width : 600, // 指定图表宽度
+      height : 300 // 指定图表高度
+    });
+    chart1.source(data1, {
+      num: {
+        type: 'log',
+        base: 10
+      }
+    });
+    chart1.point().position('name*num').color('name');
+
+    const chart2 = new G2.Chart({
+      container: 'c2', // 指定图表容器 ID
+      width : 600, // 指定图表宽度
+      height : 300 // 指定图表高度
+    });
+    chart2.scale('type', {
+      type: 'cat',
+      values: [ '最小', '适中', '最大' ]
+    });
+    chart2.source(data2, {
+      num: {
+        type: 'log',
+        base: 10
+      }
+    });
+    chart2.point().position('a*type').color('name');
+
+    chart.render();
+    chart1.render();
+    chart2.render();
+  </script>
+</body>
+</html>
